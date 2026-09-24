@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.env
+*.log
+.DS_Store
+# Raw/downloaded GRIB files are intentionally excluded
+gfs_cache/aigfs/
+gfs_cache/op/
+gfs_cache/*.grib2
+gfs_cache/*.idx

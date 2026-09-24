@@ -1,0 +1,53 @@
+# 📦 فهرس حزمة نظام خرائط أمطار حضرموت وتوقعات بحر العرب
+**تاريخ الحزمة:** 24 سبتمبر 2026 | **آخر دورة:** GFS + AI-GFS ‏24/00Z | **التصميم:** أحمد عمر ظافر
+
+> الدليل المرجعي الكامل هو `README_SYSTEM.md` — يبدأ من هنا للفهرس السريع.
+
+## البنية
+```
+hadramout_model_package/
+├── README_SYSTEM.md          ← التوثيق الشامل (المنهجية، الإجراءات، التطوير)
+├── MANIFEST.txt              ← هذا الفهرس
+├── requirements.txt          ← المكتبات (pip install -r requirements.txt)
+│
+├── *.py  (22 سكربتاً)
+│   ├── المكتبة الأم: hadramout_gfs_10day_rain.py, wxbell_legend.py, district_labels.py
+│   ├── البناء: build_3comp_24h.py, build_3comp_scenario.py, build_3comp_ai.py
+│   ├── منتجات GFS: hadramout_v17_total_24h_map.py, hadramout_v17_3comp_panel_24h.py,
+│   │              hadramout_v17_3comp_panel.py, arabian_sea_tropical_14d.py
+│   ├── منتجات AI-GFS: hadramout_ai_total_24h_map.py, hadramout_ai_3comp_panel_24h.py,
+│   │                  hadramout_ai_3comp_panel.py, arabian_sea_tropical_ai.py
+│   ├── التحقق والمعرض: verify_mukalla.py, make_gallery.py
+│   └── سكربتات تاريخية/تشخيصية: hadramout_v17_scenario_map.py, hadramout_v17_conv_map.py,
+│       hadramout_v17_chapala_map.py, hadramout_v17_total_conv_panel.py, make_24h_panel.py,
+│       design_20color_palette.py
+│
+├── data/gadm41_YEM_2.json    ← حدود مديريات اليمن (GADM v4.1)
+├── fonts/                    ← خطا Amiri (عربي)
+├── obs_check/OYRN_long.csv   ← رصد ساعي مرجعي (مطار الريان)
+├── uploads/                  ← صورة المفتاح المرجعية (مصدر ألوان WX_COLORS الـ21)
+├── image-search/             ← صور مرجعية لألوان meteoblue (خط v16.3 القديم)
+│
+├── gfs_cache/v17replay/      ← قلب النظام: 
+│   ├── scenario_20260912.npz         ← المناخ μ17 + α (أساس QDM)
+│   ├── scenario_conv_2026091306.npz  ← μ17 الحملي + حصة f_ref
+│   ├── frac17_conv.npz, ref24_sample.npz
+│   ├── v16ref/, convref/             ← 24 دورة مرجعية لكل سلسلة (QDM)
+│   └── scenario_3comp*_*.npz         ← أرشيف كل الدورات المبنية (بيانات كل منتج)
+│
+└── products_20260924_00Z/ … مخرجات الدورة الحالية في الجذر:
+    8 خرائط PNG + تقارير CSV + preview.html (معرض مستقل) + index.html
+```
+
+## ملاحظات
+1. **استُبعدا ملفا** `GFSFLX_2023100312_GrbF00` و`GFSFLX_2023101300_GrbF00` ‏(72 ميغابايت — خام UFS Replay الأصلي) لأن النظام يحمّل منتجاتهما المقطّرة `scenario_20260912.npz` فقط. لإعادة بناء المناخ من الصفر تُنزل من NOAA PSL (UFS Replay, prate).
+2. **استُبعدت** مخازن GRIB المؤقتة (`gfs_cache/aigfs`, `gfs_cache/op`, `gfs.*apcp.grib2`) — تُعاد تلقائياً عند أول تشغيل.
+3. الحزم التشغيلية الكاملة (أرشيف كل الدورات) موجودة في `gfs_cache/v17replay/scenario_*` — أي دورة يمكن إعادة رسمها بذات الـnpz دون إنترنت.
+
+## تشغيل سريع
+```bash
+pip install -r requirements.txt
+python3 hadramout_v17_total_24h_map.py 20260924 00   # خريطة 24س من npz الجاهز
+python3 make_gallery.py                              # إعادة توليد المعرض
+```
+لتحديث كامل بدورة جديدة → القسم 6 من `README_SYSTEM.md`.

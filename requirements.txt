@@ -1,0 +1,13 @@
+# متطلبات نظام خرائط أمطار حضرموت — التثبيت الكامل
+# pip install -r requirements.txt
+numpy
+matplotlib
+cartopy
+requests
+eccodes
+ecmwflibs
+scipy
+shapely
+pillow
+arabic-reshaper
+python-bidi
