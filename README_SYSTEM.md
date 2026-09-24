@@ -268,4 +268,4 @@ pip install -q numpy matplotlib cartopy eccodes ecmwflibs requests arabic-reshap
 
 ## 13) التحديث التلقائي
 
-أضيف نظام تحديث آلي في `update_all.sh` و`.github/workflows/update-model.yml`. يبحث النظام عن أحدث دورة مكتملة من GFS وAI-GFS، يعيد بناء المنتجات الثمانية والمعرض، ثم يدفع النتائج إلى GitHub كل ست ساعات. التفاصيل وخيارات النشر موثقة في `AUTO_UPDATE.md`.
+أضيف نظام تحديث آلي في `update_all.sh` و`update_all.py` مع جدولة خارجية تعمل كل ست ساعات. يبحث النظام عن أحدث دورة مكتملة من GFS وAI-GFS، يعيد بناء المنتجات الثمانية والمعرض، ثم يدفع النتائج إلى GitHub. التفاصيل وخيارات النشر موثقة في `AUTO_UPDATE.md`.
