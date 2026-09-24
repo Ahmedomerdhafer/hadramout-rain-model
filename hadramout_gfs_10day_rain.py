@@ -345,33 +345,21 @@ def download_and_accumulate_gfs_precip(date_str, cycle="00", total_days=10):
 def _ar(text):
     """تهيئة النص العربي للعرض الصحيح داخل matplotlib.
 
-    matplotlib لا يقوم بتشكيل الحروف العربية (ربطها بصيغها المتصلة)
-    ولا بترتيب الاتجاه من اليمين إلى اليسار، لذا نستخدم:
-      - arabic_reshaper : تحويل الحروف إلى Arabic Presentation Forms المتصلة
-      - python-bidi     : إعادة ترتيب النص بصرياً حسب خوارزمية الاتجاه
-    تُطبَّق سطراً سطراً لدعم النصوص متعددة الأسطر.
+    خط Amiri المضمّن في الحزمة يدعم تشكيل OpenType واتجاه العربية داخل
+    matplotlib مباشرةً. لا يجوز تمرير النص إلى ``bidi.get_display`` هنا،
+    لأن ذلك يعكس النص مرة ثانية ويجعل العناوين وأسماء المديريات معكوسة.
+    نُبقي النص بترتيبه المنطقي، مع الحفاظ على الأسطر كما كُتبت.
     """
-    try:
-        import arabic_reshaper
-        from bidi.algorithm import get_display
-    except ImportError:
-        print("⚠️ مكتبتا arabic-reshaper و python-bidi غير مثبتتين — "
-              "سيظهر النص العربي بشكل غير صحيح!")
-        return text
-    return "\n".join(get_display(arabic_reshaper.reshape(line))
-                     for line in text.split("\n"))
+    return text
 
 
 def _setup_arabic_font():
     """تسجيل خط عربي مناسب وإعادة قائمة عائلات خطوط للنص العربي.
 
-    يُفضَّل خط أميري (Amiri) لأنه يغطي كامل أشكال العرض العربية
-    (المتصلة والمنعزلة) التي ينتجها arabic_reshaper — معظم الخطوط
-    الحديثة (Tajawal/Noto/…) لا تتضمن هذه الأشكال لأنها تعتمد على
-    تشكيل OpenType الذي لا يدعمه matplotlib.
-    ملاحظة مهمة: تمرير قائمة خطوط صريحة (وليس الاسم المستعار
-    sans-serif) هو ما يُفعِّل التراجع التدريجي بين الخطوط glyph-by-glyph،
-    فتُؤخذ الحروف العربية من أميري وأي رمز ناقص (مثل ←) من DejaVu.
+    يُفضَّل خط أميري (Amiri) لأنه يوفّر تشكيل OpenType واتجاه العربية
+    الصحيحين عند تمرير النص بترتيبه المنطقي إلى matplotlib.
+    تمرير قائمة خطوط صريحة (وليس الاسم المستعار sans-serif) يتيح التراجع
+    التدريجي بين الخطوط للرموز غير الموجودة في أميري.
     """
     from matplotlib import font_manager
     families = []
