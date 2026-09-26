@@ -1,0 +1,10 @@
+station,longitude,latitude,scenario_total_mm,scenario_conv_mm,scenario_lowcloud_mm,conv_share,raw_total,raw_conv,raw_lowcloud
+Mukalla,49.12,14.53,0.1,0.1,0.0,nan,0.2,0.2,0.0
+Ash Shihr,49.60,14.76,0.0,0.0,0.0,nan,0.0,0.0,0.0
+Al-Dhabba Port,49.50,14.70,0.0,0.0,0.0,nan,0.0,0.0,0.0
+Shuhayr,49.42,14.65,0.0,0.0,0.0,nan,0.0,0.0,0.0
+Wadi Huwayrah,49.35,14.82,0.0,0.0,0.0,nan,0.0,0.0,0.0
+Seiyun (Wadi),48.78,15.93,0.0,0.0,0.0,nan,0.0,0.0,0.0
+Tarim,49.00,16.05,0.0,0.0,0.0,nan,0.0,0.0,0.0
+Dawan (Wadi),48.45,15.00,0.0,0.0,0.0,nan,0.0,0.0,0.0
+Al-Ghaydah,52.19,16.21,0.0,0.0,0.0,nan,0.1,0.1,0.0

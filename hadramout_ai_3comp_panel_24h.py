@@ -38,7 +38,7 @@ from district_labels import add_district_labels
 # دقة عرض أدق بطلب المستخدم: ~3 كم (كانت ~9 كم) — استيفاء من بيانات GFS 0.25°
 DISPLAY_RES_DEG = 3.0 / 111.32
 
-OUTPUT = "hadramout_ai_3comp_24h_20260924_18Z_panel.png"
+OUTPUT = "hadramout_ai_3comp_24h_20260925_18Z_panel.png"
 
 from wxbell_legend import draw_wxbell_legend, WX_LEVELS, WX_COLORS, WX_OVER
 LEVELS = WX_LEVELS          # مفتاح WeatherBELL المرقّم — بطلب المستخدم
@@ -119,7 +119,7 @@ def _panel(ax, field, lats, lons, arabic_fonts, title_ar, title_en):
 
 
 def main():
-    d = np.load("gfs_cache/v17replay/scenario_3comp_24h_ai_2026092418.npz")
+    d = np.load("gfs_cache/v17replay/scenario_3comp_24h_ai_2026092518.npz")
     lats, lons = d["lat"], d["lon"]
     scen_tot = d["scen_tot"].astype(np.float64) * CONSERVATIVE_FACTOR
     scen_conv = d["scen_conv"].astype(np.float64) * CONSERVATIVE_FACTOR
@@ -152,8 +152,8 @@ def main():
 
     # صندوق النافذة الزمنية (فوق اللوحة الأولى)
     axes[0].text(0.015, 0.985,
-                 "Window: next 24 h — 24 Sep 2026 18Z → 25 Sep 2026 18Z\n"
-                 "Cycle: 20260924/18Z — AI-GFS (GraphCast), f024 final",
+                 "Window: next 24 h — 25 Sep 2026 18Z → 26 Sep 2026 18Z\n"
+                 "Cycle: 20260925/18Z — AI-GFS (GraphCast), f024 final",
                  transform=axes[0].transAxes, ha='left', va='top', fontsize=8.5,
                  color='#222222', fontweight='bold', zorder=8,
                  bbox=dict(boxstyle='round,pad=0.25', facecolor='white',
@@ -170,7 +170,7 @@ def main():
     # ===== الحاشية =====
     fig.text(0.01, 0.003,
              "Scenario products calibrated to experimental GFS v17-HR1 behavior — NOT dynamical v17 runs  |  "
-             "Method: Quantile Delta Mapping (Cannon et al. 2015) applied to NOAA AIGFS v1.0 (GraphCast) cycle 20260924/18Z "
+             "Method: Quantile Delta Mapping (Cannon et al. 2015) applied to NOAA AIGFS v1.0 (GraphCast) cycle 20260925/18Z "
              "(APCP total & ACPCP convective, cumulative 0–24 h)\n"
              "v17-HR1 climatology scaled to the 24-h window via the reference-sample 24 h/10-day ratio (shape α unchanged)\n"
              "Low-cloud (stratiform) rain = non-convective component (APCP − ACPCP) — GFS has no separate low-cloud-rain variable; "
